@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Storage Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+        .file-list {
+            margin-top: 20px;
+        }
+        .file-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .file-list ul li {
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .file-list ul li a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .file-list ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>File Storage Application</h1>
+    </header>
+    <main>
+        <div class="form-group">
+            <label for="fileName">File Name:</label>
+            <input type="text" id="fileName" placeholder="Enter file name">
+        </div>
+        <div class="form-group">
+            <label for="fileURL">File URL:</label>
+            <input type="text" id="fileURL" placeholder="Enter file URL">
+        </div>
+        <div class="form-group">
+            <button onclick="addFile()">Add File</button>
+        </div>
+        <section class="file-list">
+            <h3>File List:</h3>
+            <ul id="fileList"></ul>
+        </section>
+    </main>
+    <script>
+        const fileList = [];
+
+        function addFile() {
+            const fileName = document.getElementById('fileName').value.trim();
+            const fileURL = document.getElementById('fileURL').value.trim();
+
+            if (fileName && fileURL) {
+                fileList.push({ name: fileName, url: fileURL });
+                renderFileList();
+                document.getElementById('fileName').value = '';
+                document.getElementById('fileURL').value = '';
+            } else {
+                alert('Please enter both file name and URL.');
+            }
+        }
+
+        function renderFileList() {
+            const fileListElement = document.getElementById('fileList');
+            fileListElement.innerHTML = '';
+
+            fileList.forEach((file, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${file.name}</span>
+                    <a href="${file.url}" target="_blank">Open</a>
+                `;
+                fileListElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
